@@ -1,4 +1,4 @@
-package me.macjuul.chexodius.classes;
+package me.macjuul.chexodius;
 
 import java.util.HashMap;
 
@@ -22,14 +22,14 @@ import net.minecraft.server.v1_8_R3.EntityHuman;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutOpenWindow;
 
-public class AnvilGUI {
+public class UtilAnvilGUI {
     public class AnvilClickEvent {
-        private AnvilGUI.AnvilSlot slot;
+        private UtilAnvilGUI.AnvilSlot slot;
         private String name;
         private boolean close = true;
         private boolean destroy = true;
 
-        public AnvilClickEvent(AnvilGUI anvilGUI, AnvilGUI.AnvilSlot slot, String name) {
+        public AnvilClickEvent(UtilAnvilGUI anvilGUI, UtilAnvilGUI.AnvilSlot slot, String name) {
             this.slot = slot;
             this.name = name;
         }
@@ -38,7 +38,7 @@ public class AnvilGUI {
             return name;
         }
 
-        public AnvilGUI.AnvilSlot getSlot() {
+        public UtilAnvilGUI.AnvilSlot getSlot() {
             return slot;
         }
 
@@ -59,7 +59,7 @@ public class AnvilGUI {
         }
     }
     public static abstract interface AnvilClickEventHandler {
-        public abstract void onAnvilClick(AnvilGUI.AnvilClickEvent paramAnvilClickEvent);
+        public abstract void onAnvilClick(UtilAnvilGUI.AnvilClickEvent paramAnvilClickEvent);
     }
 
     private class AnvilContainer
@@ -105,7 +105,7 @@ public class AnvilGUI {
 
     private Listener listener;
 
-    public AnvilGUI(Player player, final AnvilClickEventHandler handler) {
+    public UtilAnvilGUI(Player player, final AnvilClickEventHandler handler) {
         this.player = player;
         listener = new Listener() {@EventHandler
             public void onInventoryClick(InventoryClickEvent event) {
@@ -123,14 +123,14 @@ public class AnvilGUI {
                             name = meta.getDisplayName();
                         }
                     }
-                    AnvilGUI.AnvilClickEvent clickEvent = new AnvilGUI.AnvilClickEvent(AnvilGUI.this, AnvilGUI.AnvilSlot.bySlot(slot), name);
+                    UtilAnvilGUI.AnvilClickEvent clickEvent = new UtilAnvilGUI.AnvilClickEvent(UtilAnvilGUI.this, UtilAnvilGUI.AnvilSlot.bySlot(slot), name);
 
                     handler.onAnvilClick(clickEvent);
                     if (clickEvent.getWillClose()) {
                         event.getWhoClicked().closeInventory();
                     }
                     if (clickEvent.getWillDestroy()) {
-                        AnvilGUI.this.destroy();
+                        UtilAnvilGUI.this.destroy();
                     }
                 }
             }
@@ -141,17 +141,17 @@ public class AnvilGUI {
             if ((event.getPlayer() instanceof Player)) {
                 event.getPlayer();
                 Inventory inv = event.getInventory();
-                if (inv.equals(AnvilGUI.this.inv)) {
+                if (inv.equals(UtilAnvilGUI.this.inv)) {
                     inv.clear();
-                    AnvilGUI.this.destroy();
+                    UtilAnvilGUI.this.destroy();
                 }
             }
         }
 
         @EventHandler
         public void onPlayerQuit(PlayerQuitEvent event) {
-            if (event.getPlayer().equals(AnvilGUI.this.getPlayer())) {
-                AnvilGUI.this.destroy();
+            if (event.getPlayer().equals(UtilAnvilGUI.this.getPlayer())) {
+                UtilAnvilGUI.this.destroy();
             }
         }
         };

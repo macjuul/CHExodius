@@ -1,4 +1,4 @@
-package me.macjuul.chexodius.classes;
+package me.macjuul.chexodius;
 
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
@@ -12,11 +12,11 @@ import net.minecraft.server.v1_8_R3.EntityFireworks;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityStatus;
 import net.minecraft.server.v1_8_R3.World;
 
-public class CustomEntityFirework
+public class UtilCustomEntityFirework
 extends EntityFireworks {
     public static void spawn(Location location, FireworkEffect effect, Player...players) {
         try {
-            CustomEntityFirework firework = new CustomEntityFirework(((CraftWorld) location.getWorld()).getHandle(), players);
+            UtilCustomEntityFirework firework = new UtilCustomEntityFirework(((CraftWorld) location.getWorld()).getHandle(), players);
             FireworkMeta meta = ((Firework) firework.getBukkitEntity()).getFireworkMeta();
             meta.addEffect(effect);
             ((Firework) firework.getBukkitEntity()).setFireworkMeta(meta);
@@ -33,7 +33,7 @@ extends EntityFireworks {
 
     boolean gone = false;
 
-    public CustomEntityFirework(World world, Player...p) {
+    public UtilCustomEntityFirework(World world, Player...p) {
         super(world);
         players = p;
         a(new float[] {

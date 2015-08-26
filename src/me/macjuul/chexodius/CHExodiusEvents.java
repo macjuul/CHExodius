@@ -1,4 +1,4 @@
-package me.macjuul.chexodius.events;
+package me.macjuul.chexodius;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ import com.laytonsmith.core.exceptions.EventException;
 import com.laytonsmith.core.exceptions.PrefilterNonMatchException;
 
 @SuppressWarnings("deprecation")
-public class Events
+public class CHExodiusEvents
 implements Listener {
     public static class projectile_hit_block extends AbstractEvent {
 

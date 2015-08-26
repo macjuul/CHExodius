@@ -1,4 +1,4 @@
-package me.macjuul.chexodius.functions;
+package me.macjuul.chexodius;
 
 import java.lang.reflect.Field;
 import java.util.Random;
@@ -45,8 +45,6 @@ import com.laytonsmith.core.functions.AbstractFunction;
 import com.laytonsmith.core.functions.Exceptions;
 import com.laytonsmith.core.functions.Exceptions.ExceptionType;
 
-import me.macjuul.chexodius.classes.AnvilGUI;
-import me.macjuul.chexodius.classes.CustomEntityFirework;
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.Blocks;
 import net.minecraft.server.v1_8_R3.EntityCreature;
@@ -62,7 +60,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 
-public class CHExodius {
+public class CHExodiusFunctions {
     public static String docs() {
         return "This Extension will add some sick things to CommandHelper!";
     }
@@ -446,9 +444,9 @@ public class CHExodius {
                     }
                 }
             }
-            AnvilGUI gui = new AnvilGUI(p, new AnvilGUI.AnvilClickEventHandler() {
-                public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
-                    if (event.getSlot() == AnvilGUI.AnvilSlot.OUTPUT) {
+            UtilAnvilGUI gui = new UtilAnvilGUI(p, new UtilAnvilGUI.AnvilClickEventHandler() {
+                public void onAnvilClick(UtilAnvilGUI.AnvilClickEvent event) {
+                    if (event.getSlot() == UtilAnvilGUI.AnvilSlot.OUTPUT) {
                         event.setWillClose(true);
                         event.setWillDestroy(true);
 
@@ -464,7 +462,7 @@ public class CHExodius {
             meta.setDisplayName(name);
             item.setItemMeta(meta);
 
-            gui.setSlot(AnvilGUI.AnvilSlot.INPUT_LEFT, item);
+            gui.setSlot(UtilAnvilGUI.AnvilSlot.INPUT_LEFT, item);
 
             gui.open();
 
@@ -874,7 +872,7 @@ public class CHExodius {
 
             FireworkEffect effect = builder.flicker(flicker.booleanValue()).trail(trail.booleanValue()).build();
 
-            CustomEntityFirework.spawn(loc, effect, new Player[0]);
+            UtilCustomEntityFirework.spawn(loc, effect, new Player[0]);
 
             return CVoid.VOID;
         }

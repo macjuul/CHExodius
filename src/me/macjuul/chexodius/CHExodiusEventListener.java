@@ -4,12 +4,10 @@ import org.bukkit.event.Listener;
 
 import com.laytonsmith.commandhelper.CommandHelperPlugin;
 
-import me.macjuul.chexodius.events.Events;
-
 public class CHExodiusEventListener
 implements Listener {
     public CHExodiusEventListener(CommandHelperPlugin chp) {
-        Events events = new Events();
+        CHExodiusEvents events = new CHExodiusEvents();
         chp.registerEvents(events);
     }
 }

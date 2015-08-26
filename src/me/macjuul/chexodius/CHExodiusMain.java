@@ -7,7 +7,7 @@ import com.laytonsmith.core.extensions.AbstractExtension;
 import com.laytonsmith.core.extensions.MSExtension;
 
 @MSExtension("CHExodius")
-public class CHExodius
+public class CHExodiusMain
 extends AbstractExtension {
     public static CommandHelperPlugin chp;
     public static CHExodiusEventListener listener;
