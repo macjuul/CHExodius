@@ -13,7 +13,7 @@ extends AbstractExtension {
     public static CHExodiusEventListener listener;
 
     public Version getVersion() {
-        return new SimpleVersion(1, 8, 2);
+        return new SimpleVersion(2, 0, 0);
     }
 
     public void onShutdown() {
