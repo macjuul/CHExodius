@@ -1,7 +1,7 @@
 # CHExodius
 Adds a bunch of random handy functions & events to CommandHelper. Some of them require NMS code so this Extensions will probrbly break quite often. If that happens check here for an updated version or contact me via mail (*minecraftmacjuul@gmail.com*) to ask for an update or request a new feature.
 
-Latest release: [download](https://themissinglink.church)
+Latest release: [download v2.2.0](https://github.com/macjuul/CHExodius/releases/tag/v2.2.0)
 
 ## Functions:
 + **set_tab_msg(Player, Header, Footer)** - Set a TAB list header & footer message
@@ -16,6 +16,7 @@ Latest release: [download](https://themissinglink.church)
 + **set_entity_target(Entity, TargetEntity)** - make an entity target another mob. This function is very likeley to do nothing at all.
 + **get_tps() [SPIGOT ONLY]** - Gets an array containing the TPS of the last 1, 5 and 15 minutes.
 + **launch_instant_firework(locationArray, [color], [type], [flicker], [trail])** - Launch an instantly detonating firework. Color accepts an array containing 3 ints, using RGB
++  **set_entity_advanced_spec(Entity UUID, Spec array)** - Set entity options that Command Helper does not support directly. Current specs are Ignited (For creepers) and NoAI
 
 ## Events:
 ###projectile_hit_block
