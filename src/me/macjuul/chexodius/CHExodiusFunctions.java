@@ -8,6 +8,7 @@ import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
@@ -49,8 +50,10 @@ import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.Blocks;
 import net.minecraft.server.v1_8_R3.EntityCreature;
 import net.minecraft.server.v1_8_R3.EntityLiving;
+import net.minecraft.server.v1_8_R3.EnumSkyBlock;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutBlockAction;
 import net.minecraft.server.v1_8_R3.PacketPlayOutBlockBreakAnimation;
@@ -405,6 +408,64 @@ public class CHExodiusFunctions {
     }
 
     @api
+    public static class set_light_at
+    extends AbstractFunction {
+        public Exceptions.ExceptionType[] thrown() {
+            return new Exceptions.ExceptionType[] {
+                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+            };
+        }
+
+        public boolean isRestricted() {
+            return true;
+        }
+
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+
+        public Construct exec(Target t, Environment environment, Construct...args)
+                throws ConfigRuntimeException {
+            CArray loc = Static.getArray(args[1], t);
+            Short level = Short.valueOf(args[1].val());
+
+            if((level < 0) || (level > 15)) {
+                throw new ConfigRuntimeException("The light level cannot be lower than 0 or be higher than 15", ExceptionType.IllegalArgumentException, t);
+            }
+
+            double x = Double.valueOf(Static.getDouble(loc.get(0, t), t)).doubleValue();
+            double y = Double.valueOf(Static.getDouble(loc.get(1, t), t)).doubleValue();
+            double z = Double.valueOf(Static.getDouble(loc.get(2, t), t)).doubleValue();
+
+            BlockPosition pos = new BlockPosition(x, y, z);
+
+            net.minecraft.server.v1_8_R3.World w = ((CraftWorld) Bukkit.getWorld(loc.get(3, t).val())).getHandle();
+
+            w.a(EnumSkyBlock.BLOCK, pos, level);
+
+            return CVoid.VOID;
+        }
+
+        public String getName() {
+            return "set_light_at";
+        }
+
+        public Integer[] numArgs() {
+            return new Integer[] {
+                    Integer.valueOf(3), Integer.valueOf(4)
+            };
+        }
+
+        public String docs() {
+            return "void {player, location array, int level, [int id]} Makes a fake block crack effect at the location. crackSize changes the size of the cracks. Supplying the function with an ID allows you to 'remove' the crack later by making a level 0 crack with the same ID";
+        }
+
+        public Version since() {
+            return CHVersion.V3_3_1;
+        }
+    }
+
+    @api
     public static class user_input
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
@@ -572,17 +633,9 @@ public class CHExodiusFunctions {
             if (args[1] instanceof CNull) {
                 victim = p;
             } else {
-                for (World world: Bukkit.getWorlds()) {
-                    for (Entity entity: world.getEntities()) {
-                        String id = entity.getUniqueId().toString();
-                        if (id.equals(args[1].val())) {
-                            victim = (CraftEntity) entity;
-                        }
-                    }
-                }
-
+                victim = (CraftEntity) UtilClass.getEntityByID(args[1].val());
                 if (victim == null) {
-                    throw new ConfigRuntimeException("Entity " + args[1].val() + "does not exist!", ExceptionType.BadEntityException, t);
+                    throw new ConfigRuntimeException("Entity " + args[1].val() + " does not exist!", ExceptionType.BadEntityException, t);
                 }
             }
 
@@ -630,20 +683,9 @@ public class CHExodiusFunctions {
 
         public Construct exec(Target t, Environment environment, Construct...args)
                 throws ConfigRuntimeException {
-            Entity attacker = null;
-            Entity victim = null;
-            for (World world: Bukkit.getWorlds()) {
-                for (Entity entity: world.getEntities()) {
-                    if (Integer.toString(entity.getEntityId()).equals(args[0].val())) {
-                        if ((entity instanceof CraftPlayer)) {
-                            throw new ConfigRuntimeException("Cannot set target on entity Player", Exceptions.ExceptionType.CastException, t);
-                        }
-                        attacker = entity;
-                    } else if (Integer.toString(entity.getEntityId()).equals(args[1].val())) {
-                        victim = entity;
-                    }
-                }
-            }
+            Entity attacker = UtilClass.getEntityByID(args[0].val());
+            Entity victim = UtilClass.getEntityByID(args[1].val());
+
             EntityCreature ec = (EntityCreature)((CraftEntity) attacker).getHandle();
             ec.b((EntityLiving)((CraftEntity) victim).getHandle());
 
@@ -889,6 +931,69 @@ public class CHExodiusFunctions {
 
         public String docs() {
             return "void {locationArray, [color], [type], [flicker], [trail]} Launch an instantly detonating firework. Color accepts an array containing 3 ints, using RGB";
+        }
+
+        public Version since() {
+            return CHVersion.V3_3_1;
+        }
+    }
+
+    @api
+    public static class set_entity_advanced_spec extends AbstractFunction {
+        public Exceptions.ExceptionType[] thrown() {
+            return new Exceptions.ExceptionType[] {
+                    Exceptions.ExceptionType.CastException
+            };
+        }
+
+        public boolean isRestricted() {
+            return true;
+        }
+
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+
+        public Construct exec(Target t, Environment environment, Construct...args) throws ConfigRuntimeException {
+            Entity e = UtilClass.getEntityByID(args[0].val());
+            if(e == null) {
+                throw new ConfigRuntimeException("The entity with ID " + args[0].val() + " does not exist", ExceptionType.BadEntityException, t);
+            }
+
+            CArray spec = Static.getArray(args[1], t);
+
+            net.minecraft.server.v1_8_R3.Entity nmsEntity = ((CraftEntity) e).getHandle();
+
+            NBTTagCompound tag = new NBTTagCompound();
+
+            nmsEntity.c(tag);
+
+            if(spec.containsKey("NoAI")) {
+                tag.setBoolean("NoAI", Boolean.valueOf(spec.get("NoAI", t).val()));
+            }
+
+            if(spec.containsKey("Ignited")) {
+                tag.setBoolean("ignited", Boolean.valueOf(spec.get("Ignited", t).val()));
+            }
+
+            EntityLiving el = (EntityLiving) nmsEntity;
+            el.a(tag);
+
+            return CVoid.VOID;
+        }
+
+        public String getName() {
+            return "set_entity_advanced_spec";
+        }
+
+        public Integer[] numArgs() {
+            return new Integer[] {
+                    Integer.valueOf(2)
+            };
+        }
+
+        public String docs() {
+            return "void {Entity ID, spec array} Sets special data on entities that CommandHelper does not support. This function will not assign different specs to different entities, so be carefull when you apply a tag to the wrong entity, since this might cause uninteded behavoir. Currently supported values are (Boolean) NoAI and (Boolean)[Creepers] Ignited";
         }
 
         public Version since() {
