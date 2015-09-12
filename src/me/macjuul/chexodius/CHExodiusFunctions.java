@@ -73,7 +73,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -86,7 +87,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             String headerraw = args[1].getValue();
             String footerraw = args[2].getValue();
 
@@ -123,7 +124,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(3)
+ Integer.valueOf(3)
             };
         }
 
@@ -141,7 +142,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -154,7 +156,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             String message = args[1].getValue();
 
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
@@ -172,7 +174,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(2)
+ Integer.valueOf(2)
             };
         }
 
@@ -190,7 +192,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -203,7 +206,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
             String title = args[1].getValue();
             String subtitle = args[2].getValue();
@@ -231,7 +234,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(6)
+ Integer.valueOf(6)
             };
         }
 
@@ -249,7 +252,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -263,7 +267,7 @@ public class CHExodiusFunctions {
 
         @SuppressWarnings("rawtypes")
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
 
             CArray loc = Static.getArray(args[1], t);
@@ -288,7 +292,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(3)
+ Integer.valueOf(3)
             };
         }
 
@@ -306,7 +310,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -319,7 +324,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
 
             int slot = Integer.valueOf(args[1].val()).intValue();
@@ -334,7 +339,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(1), Integer.valueOf(2)
+ Integer.valueOf(1), Integer.valueOf(2)
             };
         }
 
@@ -352,7 +357,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -365,7 +371,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
 
             CArray loc = Static.getArray(args[1], t);
@@ -394,7 +400,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(3), Integer.valueOf(4)
+ Integer.valueOf(3), Integer.valueOf(4)
             };
         }
 
@@ -412,7 +418,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -425,7 +432,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             CArray loc = Static.getArray(args[1], t);
             Short level = Short.valueOf(args[1].val());
 
@@ -452,7 +459,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(3), Integer.valueOf(4)
+ Integer.valueOf(3), Integer.valueOf(4)
             };
         }
 
@@ -470,7 +477,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -536,7 +544,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(2), Integer.valueOf(3)
+ Integer.valueOf(2), Integer.valueOf(3)
             };
         }
 
@@ -554,7 +562,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -567,7 +576,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             String msg;
             CraftPlayer player;
             if (args.length == 1) {
@@ -596,7 +605,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(1), Integer.valueOf(2)
+ Integer.valueOf(1), Integer.valueOf(2)
             };
         }
 
@@ -614,7 +623,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -627,7 +637,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
             CraftEntity victim = null;
             if (args[1] instanceof CNull) {
@@ -651,7 +661,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(2)
+ Integer.valueOf(2)
             };
         }
 
@@ -669,7 +679,8 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -682,7 +693,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             Entity attacker = UtilClass.getEntityByID(args[0].val());
             Entity victim = UtilClass.getEntityByID(args[1].val());
 
@@ -698,7 +709,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(2)
+ Integer.valueOf(2)
             };
         }
 
@@ -716,7 +727,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.CastException
             };
         }
 
@@ -729,7 +740,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             double[] tps = MinecraftServer.getServer().recentTps;
             CArray ret = new CArray(t);
             double[] arrayOfDouble1;
@@ -747,7 +758,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(0)
+ Integer.valueOf(0)
             };
         }
 
@@ -761,13 +772,14 @@ public class CHExodiusFunctions {
     }
 
     @api(environments = {
-            CommandHelperEnvironment.class
+ CommandHelperEnvironment.class
     })
     public static class catched_create_world
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.FormatException, Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.FormatException,
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -780,7 +792,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment env, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             MCWorldCreator creator = StaticLayer.GetConvertor().getWorldCreator(args[0].val());
             if (args.length >= 3) {
                 MCWorldType type;
@@ -821,7 +833,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(1), Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(5)
+ Integer.valueOf(1), Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(5)
             };
         }
 
@@ -839,7 +851,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.CastException
             };
         }
 
@@ -852,7 +864,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
+ throws ConfigRuntimeException {
             Boolean flicker = Boolean.valueOf(false);
             Boolean trail = Boolean.valueOf(false);
             CArray color = new CArray(t);
@@ -925,7 +937,8 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(5)
+ Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4),
+                    Integer.valueOf(5)
             };
         }
 
@@ -942,7 +955,7 @@ public class CHExodiusFunctions {
     public static class set_entity_advanced_spec extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.CastException
+ Exceptions.ExceptionType.CastException
             };
         }
 
@@ -988,7 +1001,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(2)
+ Integer.valueOf(2)
             };
         }
 
