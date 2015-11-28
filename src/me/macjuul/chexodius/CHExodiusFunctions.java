@@ -8,6 +8,9 @@ import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Skull;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -73,7 +76,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -86,8 +89,7 @@ public class CHExodiusFunctions {
             return Boolean.valueOf(false);
         }
 
-        public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
             String headerraw = args[1].getValue();
             String footerraw = args[2].getValue();
 
@@ -156,7 +158,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             String message = args[1].getValue();
 
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
@@ -174,7 +176,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(2)
+                    Integer.valueOf(2)
             };
         }
 
@@ -192,7 +194,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -206,7 +208,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
             String title = args[1].getValue();
             String subtitle = args[2].getValue();
@@ -234,7 +236,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(6)
+                    Integer.valueOf(6)
             };
         }
 
@@ -252,7 +254,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -267,7 +269,7 @@ public class CHExodiusFunctions {
 
         @SuppressWarnings("rawtypes")
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
 
             CArray loc = Static.getArray(args[1], t);
@@ -292,12 +294,12 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(3)
+                    Integer.valueOf(3)
             };
         }
 
         public String docs() {
-            return "void {player, location array, state} Sends a faje chest opening and closing packet to the player. State is a boolean: true will open the chest, false will close it";
+            return "void {player, location array, state} Sends a fake chest opening and closing packet to the player. State is a boolean: true will open the chest, false will close it";
         }
 
         public Version since() {
@@ -310,7 +312,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -324,7 +326,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
 
             int slot = Integer.valueOf(args[1].val()).intValue();
@@ -339,7 +341,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(1), Integer.valueOf(2)
+                    Integer.valueOf(1), Integer.valueOf(2)
             };
         }
 
@@ -357,7 +359,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -371,7 +373,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
 
             CArray loc = Static.getArray(args[1], t);
@@ -400,7 +402,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(3), Integer.valueOf(4)
+                    Integer.valueOf(3), Integer.valueOf(4)
             };
         }
 
@@ -418,7 +420,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -432,7 +434,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             CArray loc = Static.getArray(args[1], t);
             Short level = Short.valueOf(args[1].val());
 
@@ -459,7 +461,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(3), Integer.valueOf(4)
+                    Integer.valueOf(3), Integer.valueOf(4)
             };
         }
 
@@ -477,7 +479,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -544,7 +546,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(2), Integer.valueOf(3)
+                    Integer.valueOf(2), Integer.valueOf(3)
             };
         }
 
@@ -562,7 +564,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -576,7 +578,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             String msg;
             CraftPlayer player;
             if (args.length == 1) {
@@ -605,7 +607,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(1), Integer.valueOf(2)
+                    Integer.valueOf(1), Integer.valueOf(2)
             };
         }
 
@@ -623,7 +625,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -637,7 +639,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
             CraftEntity victim = null;
             if (args[1] instanceof CNull) {
@@ -661,7 +663,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(2)
+                    Integer.valueOf(2)
             };
         }
 
@@ -679,7 +681,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
+                    Exceptions.ExceptionType.PlayerOfflineException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -693,7 +695,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             Entity attacker = UtilClass.getEntityByID(args[0].val());
             Entity victim = UtilClass.getEntityByID(args[1].val());
 
@@ -709,7 +711,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(2)
+                    Integer.valueOf(2)
             };
         }
 
@@ -727,7 +729,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.CastException
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -740,14 +742,14 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             double[] tps = MinecraftServer.getServer().recentTps;
             CArray ret = new CArray(t);
             double[] arrayOfDouble1;
             int j = (arrayOfDouble1 = tps).length;
             for (int i = 0; i < j; i++) {
                 Double f = Double.valueOf(arrayOfDouble1[i]);
-                ret.push(new CDouble(f.doubleValue(), t));
+                ret.push(new CDouble(f.doubleValue(), t), t);
             }
             return ret;
         }
@@ -758,7 +760,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(0)
+                    Integer.valueOf(0)
             };
         }
 
@@ -772,13 +774,13 @@ public class CHExodiusFunctions {
     }
 
     @api(environments = {
- CommandHelperEnvironment.class
+            CommandHelperEnvironment.class
     })
     public static class catched_create_world
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.FormatException,
+                    Exceptions.ExceptionType.FormatException,
                     Exceptions.ExceptionType.CastException
             };
         }
@@ -792,7 +794,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment env, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             MCWorldCreator creator = StaticLayer.GetConvertor().getWorldCreator(args[0].val());
             if (args.length >= 3) {
                 MCWorldType type;
@@ -833,7 +835,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(1), Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(5)
+                    Integer.valueOf(1), Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(5)
             };
         }
 
@@ -851,7 +853,7 @@ public class CHExodiusFunctions {
     extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.CastException
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -864,16 +866,16 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args)
- throws ConfigRuntimeException {
+                throws ConfigRuntimeException {
             Boolean flicker = Boolean.valueOf(false);
             Boolean trail = Boolean.valueOf(false);
             CArray color = new CArray(t);
             String type = "ball";
             switch (args.length) {
                 case 1:
-                    color.push(new CInt(255, t));
-                    color.push(new CInt(255, t));
-                    color.push(new CInt(255, t));
+                    color.push(new CInt(255, t), t);
+                    color.push(new CInt(255, t), t);
+                    color.push(new CInt(255, t), t);
                     break;
                 case 2:
                     color = Static.getArray(args[1], t);
@@ -937,7 +939,7 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4),
+                    Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4),
                     Integer.valueOf(5)
             };
         }
@@ -955,7 +957,7 @@ public class CHExodiusFunctions {
     public static class set_entity_advanced_spec extends AbstractFunction {
         public Exceptions.ExceptionType[] thrown() {
             return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.CastException
+                    Exceptions.ExceptionType.CastException
             };
         }
 
@@ -1001,12 +1003,116 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
- Integer.valueOf(2)
+                    Integer.valueOf(2)
             };
         }
 
         public String docs() {
             return "void {Entity ID, spec array} Sets special data on entities that CommandHelper does not support. This function will not assign different specs to different entities, so be carefull when you apply a tag to the wrong entity, since this might cause uninteded behavoir. Currently supported values are (Boolean) NoAI and (Boolean)[Creepers] Ignited";
+        }
+
+        public Version since() {
+            return CHVersion.V3_3_1;
+        }
+    }
+    
+    @api
+    public static class set_skull_at extends AbstractFunction {
+        public Exceptions.ExceptionType[] thrown() {
+            return new Exceptions.ExceptionType[] {
+                    Exceptions.ExceptionType.CastException
+            };
+        }
+
+        public boolean isRestricted() {
+            return true;
+        }
+
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+
+        public Construct exec(Target t, Environment environment, Construct...args) throws ConfigRuntimeException {
+            CArray location = Static.getArray(args[0], t);
+            String name = args[1].val();
+            
+            Block block = UtilClass.getLocation(location).getBlock();
+            
+            BlockState blockState = block.getState();
+             
+            if (blockState instanceof Skull) {
+                Skull skull = (Skull) blockState;
+                skull.setOwner(name);
+                skull.update();
+            } else throw new ConfigRuntimeException("The block at that location is not a head", ExceptionType.NotFoundException, t);
+
+            return CVoid.VOID;
+        }
+
+        public String getName() {
+            return "set_skull_at";
+        }
+
+        public Integer[] numArgs() {
+            return new Integer[] {
+                    Integer.valueOf(2)
+            };
+        }
+
+        public String docs() {
+            return "void {Location array, name} Change the skull owner of a player head";
+        }
+
+        public Version since() {
+            return CHVersion.V3_3_1;
+        }
+    }
+    
+    @api
+    public static class get_skull_at extends AbstractFunction {
+        public Exceptions.ExceptionType[] thrown() {
+            return new Exceptions.ExceptionType[] {
+                    Exceptions.ExceptionType.CastException
+            };
+        }
+
+        public boolean isRestricted() {
+            return true;
+        }
+
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+
+        public Construct exec(Target t, Environment environment, Construct...args) throws ConfigRuntimeException {
+            CArray location = Static.getArray(args[0], t);
+            String name;
+            
+            Location loc = UtilClass.getLocation(location);
+            Block block = loc.getBlock();
+            
+            BlockState blockState = block.getState();
+             
+            if (blockState instanceof Skull) {
+                Skull skull = (Skull) blockState;
+                name = skull.getOwner();
+            } else throw new ConfigRuntimeException("The block at that location is not a head", ExceptionType.NotFoundException, t);
+
+            return new CString(name, t);
+        }
+
+        public String getName() {
+            return "get_skull_at";
+        }
+
+        public Integer[] numArgs() {
+            return new Integer[] {
+                    Integer.valueOf(1)
+            };
+        }
+
+        public String docs() {
+            return "String {Location array} Gets the skull owner of the head at the given location";
         }
 
         public Version since() {
