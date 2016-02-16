@@ -45,9 +45,15 @@ import com.laytonsmith.core.constructs.Target;
 import com.laytonsmith.core.environments.CommandHelperEnvironment;
 import com.laytonsmith.core.environments.Environment;
 import com.laytonsmith.core.exceptions.ConfigRuntimeException;
+import com.laytonsmith.core.exceptions.CRE.CREBadEntityException;
+import com.laytonsmith.core.exceptions.CRE.CRECastException;
+import com.laytonsmith.core.exceptions.CRE.CREFormatException;
+import com.laytonsmith.core.exceptions.CRE.CREIllegalArgumentException;
+import com.laytonsmith.core.exceptions.CRE.CRENotFoundException;
+import com.laytonsmith.core.exceptions.CRE.CREPlayerOfflineException;
+import com.laytonsmith.core.exceptions.CRE.CREThrowable;
 import com.laytonsmith.core.functions.AbstractFunction;
 import com.laytonsmith.core.functions.Exceptions;
-import com.laytonsmith.core.functions.Exceptions.ExceptionType;
 
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.Blocks;
@@ -74,10 +80,11 @@ public class CHExodiusFunctions {
     @api
     public static class set_tab_msg
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -135,17 +142,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class send_action_msg
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
- Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+ CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -185,17 +193,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class send_title
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -245,17 +254,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class send_chest_packet
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -303,17 +313,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class set_hotbar_slot
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -350,17 +361,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class send_block_cracks
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -411,17 +423,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class set_light_at
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -439,7 +452,7 @@ public class CHExodiusFunctions {
             Short level = Short.valueOf(args[1].val());
 
             if((level < 0) || (level > 15)) {
-                throw new ConfigRuntimeException("The light level cannot be lower than 0 or be higher than 15", ExceptionType.IllegalArgumentException, t);
+                throw new CREIllegalArgumentException("The light level cannot be lower than 0 or be higher than 15", t);
             }
 
             double x = Double.valueOf(Static.getDouble(loc.get(0, t), t)).doubleValue();
@@ -470,17 +483,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class user_input
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -555,17 +569,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class json_msg
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -596,7 +611,7 @@ public class CHExodiusFunctions {
                 PacketPlayOutChat packet = new PacketPlayOutChat(comp);
                 player.getHandle().playerConnection.sendPacket(packet);
             } catch (JsonSyntaxException ex) {
-                throw new ConfigRuntimeException("Invalid JSON string", Exceptions.ExceptionType.CastException, t);
+                throw new CRECastException("Invalid JSON string", t);
             }
             return CVoid.VOID;
         }
@@ -616,17 +631,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class set_pspectating
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -647,7 +663,7 @@ public class CHExodiusFunctions {
             } else {
                 victim = (CraftEntity) UtilClass.getEntityByID(args[1].val());
                 if (victim == null) {
-                    throw new ConfigRuntimeException("Entity " + args[1].val() + " does not exist!", ExceptionType.BadEntityException, t);
+                    throw new CREBadEntityException("Entity " + args[1].val() + " does not exist!", t);
                 }
             }
 
@@ -672,17 +688,18 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class set_entity_target
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.PlayerOfflineException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREPlayerOfflineException.class,
+                    CRECastException.class
             };
         }
 
@@ -720,16 +737,17 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class get_tps
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
             };
         }
 
@@ -769,7 +787,7 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
@@ -778,10 +796,11 @@ public class CHExodiusFunctions {
     })
     public static class catched_create_world
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.FormatException,
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CREFormatException.class,
+                    CRECastException.class
             };
         }
 
@@ -801,13 +820,13 @@ public class CHExodiusFunctions {
                 try {
                     type = MCWorldType.valueOf(args[1].val().toUpperCase());
                 } catch (IllegalArgumentException e) {
-                    throw new ConfigRuntimeException(args[1].val() + " is not a valid world type. Must be one of: " + StringUtils.Join(MCWorldType.values(), ", "), Exceptions.ExceptionType.FormatException, t);
+                    throw new CREFormatException(args[1].val() + " is not a valid world type. Must be one of: " + StringUtils.Join(MCWorldType.values(), ", "), t);
                 }
                 MCWorldEnvironment environment;
                 try {
                     environment = MCWorldEnvironment.valueOf(args[2].val().toUpperCase());
                 } catch (IllegalArgumentException e) {
-                    throw new ConfigRuntimeException(args[2].val() + " is not a valid environment type. Must be one of: " + StringUtils.Join(MCWorldEnvironment.values(), ", "), Exceptions.ExceptionType.FormatException, t);
+                    throw new CREFormatException(args[2].val() + " is not a valid environment type. Must be one of: " + StringUtils.Join(MCWorldEnvironment.values(), ", "), t);
                 }
                 creator.type(type).environment(environment);
             }
@@ -844,16 +863,17 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class launch_instant_firework
     extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
             };
         }
 
@@ -896,7 +916,7 @@ public class CHExodiusFunctions {
                     trail = Boolean.valueOf(args[4].val());
             }
             if (!Integer.valueOf((int) color.size()).equals(3)) {
-                throw new ConfigRuntimeException("Color has to be an RGB array with 3 values", ExceptionType.FormatException, t);
+                throw new CREFormatException("Color has to be an RGB array with 3 values", t);
             }
             FireworkEffect.Builder builder = FireworkEffect.builder();
 
@@ -949,15 +969,16 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 
     @api
     public static class set_entity_advanced_spec extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
             };
         }
 
@@ -972,7 +993,7 @@ public class CHExodiusFunctions {
         public Construct exec(Target t, Environment environment, Construct...args) throws ConfigRuntimeException {
             Entity e = UtilClass.getEntityByID(args[0].val());
             if(e == null) {
-                throw new ConfigRuntimeException("The entity with ID " + args[0].val() + " does not exist", ExceptionType.BadEntityException, t);
+                throw new CREBadEntityException("The entity with ID " + args[0].val() + " does not exist", t);
             }
 
             CArray spec = Static.getArray(args[1], t);
@@ -1012,15 +1033,16 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
     
     @api
     public static class set_skull_at extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
             };
         }
 
@@ -1044,7 +1066,7 @@ public class CHExodiusFunctions {
                 Skull skull = (Skull) blockState;
                 skull.setOwner(name);
                 skull.update();
-            } else throw new ConfigRuntimeException("The block at that location is not a head", ExceptionType.NotFoundException, t);
+            } else throw new CRENotFoundException("The block at that location is not a head", t);
 
             return CVoid.VOID;
         }
@@ -1064,15 +1086,16 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
     
     @api
     public static class get_skull_at extends AbstractFunction {
-        public Exceptions.ExceptionType[] thrown() {
-            return new Exceptions.ExceptionType[] {
-                    Exceptions.ExceptionType.CastException
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
             };
         }
 
@@ -1096,7 +1119,7 @@ public class CHExodiusFunctions {
             if (blockState instanceof Skull) {
                 Skull skull = (Skull) blockState;
                 name = skull.getOwner();
-            } else throw new ConfigRuntimeException("The block at that location is not a head", ExceptionType.NotFoundException, t);
+            } else throw new CRENotFoundException("The block at that location is not a head", t);
 
             return new CString(name, t);
         }
@@ -1116,7 +1139,7 @@ public class CHExodiusFunctions {
         }
 
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
         }
     }
 }
