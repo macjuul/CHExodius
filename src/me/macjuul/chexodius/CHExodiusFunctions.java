@@ -1,6 +1,8 @@
 package me.macjuul.chexodius;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -15,15 +17,18 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.Vector;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.laytonsmith.PureUtilities.Version;
 import com.laytonsmith.PureUtilities.Common.StringUtils;
 import com.laytonsmith.abstraction.MCLocation;
+import com.laytonsmith.abstraction.MCPlayer;
 import com.laytonsmith.abstraction.MCWorldCreator;
 import com.laytonsmith.abstraction.StaticLayer;
 import com.laytonsmith.abstraction.enums.MCWorldEnvironment;
@@ -447,7 +452,7 @@ public class CHExodiusFunctions {
 
         public Construct exec(Target t, Environment environment, Construct...args)
                 throws ConfigRuntimeException {
-            CArray loc = Static.getArray(args[1], t);
+            CArray loc = Static.getArray(args[0], t);
             Short level = Short.valueOf(args[1].val());
 
             if((level < 0) || (level > 15)) {
@@ -473,12 +478,12 @@ public class CHExodiusFunctions {
 
         public Integer[] numArgs() {
             return new Integer[] {
-                    Integer.valueOf(3), Integer.valueOf(4)
+                    Integer.valueOf(2)
             };
         }
 
         public String docs() {
-            return "void {player, location array, int level, [int id]} Makes a fake block crack effect at the location. crackSize changes the size of the cracks. Supplying the function with an ID allows you to 'remove' the crack later by making a level 0 crack with the same ID";
+            return "void {Location array, int level} Spawns a fake light source at the given location";
         }
 
         public Version since() {
@@ -513,6 +518,9 @@ public class CHExodiusFunctions {
             int id = 421;
             int data = 0;
             String name = "Enter input...";
+            CArray lore = null;
+            List<String> loreList = null;
+            
             if (new Integer(args.length).equals(3)) {
                 CArray item = Static.getArray(args[2], t);
                 if (item.containsKey("type")) {
@@ -525,6 +533,9 @@ public class CHExodiusFunctions {
                     CArray meta = Static.getArray(item.get("meta", t), t);
                     if (meta.containsKey("display")) {
                         name = meta.get("display", t).val();
+                    }
+                    if (meta.containsKey("lore")) {
+                        lore = Static.getArray(meta.get("lore", t), t);
                     }
                 }
             }
@@ -540,10 +551,21 @@ public class CHExodiusFunctions {
                         event.setWillDestroy(false);
                     }
                 }
-            });@SuppressWarnings("deprecation")
+            });
+            @SuppressWarnings("deprecation")
             ItemStack item = new ItemStack(id, 1, (short) data);
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(name);
+            
+            if(lore != null) {
+                loreList = new ArrayList<String>();
+                for(int i = 0; i < lore.size(); i++) {
+                    String line = lore.get(i, t).val();
+                    loreList.add(line);
+                }
+                meta.setLore(loreList);
+            }
+            
             item.setItemMeta(meta);
 
             gui.setSlot(UtilAnvilGUI.AnvilSlot.INPUT_LEFT, item);
@@ -1139,6 +1161,69 @@ public class CHExodiusFunctions {
 
         public Version since() {
             return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class get_ptarget extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            MCPlayer p = ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer();
+            if(args.length == 1) {
+                p = Static.GetPlayer(args[0], t);
+            }
+            Static.AssertPlayerNonNull(p, t);
+            Player player = (Player)p.getHandle();
+            Entity target = null;
+            double targertDistanceSquared = 0.0D;
+            Vector l = player.getEyeLocation().toVector();
+            Vector n = player.getLocation().getDirection().normalize();
+            double cos45 = Math.cos(0.7853981633974483D);
+            for(LivingEntity other : player.getWorld().getEntitiesByClass(LivingEntity.class)) {
+                if(other != player) {
+                    if((target == null) || (targertDistanceSquared > other.getLocation().distanceSquared(player.getLocation()))) {
+                        Vector v = other.getLocation().add(0.0D, 1.0D, 0.0D).toVector().subtract(l);
+                        if((n.clone().crossProduct(v).lengthSquared() < 1.0D) && (v.normalize().dot(n) >= cos45)) {
+                            target = other;
+                            targertDistanceSquared = target.getLocation().distanceSquared(player.getLocation());
+                        }
+                    }
+                }
+            }
+            if(target == null) {
+                return CNull.NULL;
+            }
+            return new CString(target.getUniqueId().toString(), t);
+        }
+  
+        public String getName() {
+            return "get_ptarget";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] { Integer.valueOf(1), Integer.valueOf(0) };
+        }
+      
+        public String docs() {
+            return "Integer {[Player]} gets the entity id of the entity the player is looking at";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_1;
         }
     }
 }
