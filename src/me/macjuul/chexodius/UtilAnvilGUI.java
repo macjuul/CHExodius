@@ -3,7 +3,7 @@ package me.macjuul.chexodius;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -15,12 +15,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import net.minecraft.server.v1_8_R3.BlockPosition;
-import net.minecraft.server.v1_8_R3.ChatMessage;
-import net.minecraft.server.v1_8_R3.ContainerAnvil;
-import net.minecraft.server.v1_8_R3.EntityHuman;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.PacketPlayOutOpenWindow;
+import net.minecraft.server.v1_9_R1.BlockPosition;
+import net.minecraft.server.v1_9_R1.ChatMessage;
+import net.minecraft.server.v1_9_R1.ContainerAnvil;
+import net.minecraft.server.v1_9_R1.EntityHuman;
+import net.minecraft.server.v1_9_R1.EntityPlayer;
+import net.minecraft.server.v1_9_R1.PacketPlayOutOpenWindow;
 
 public class UtilAnvilGUI {
     public class AnvilClickEvent {
@@ -107,7 +107,8 @@ public class UtilAnvilGUI {
 
     public UtilAnvilGUI(Player player, final AnvilClickEventHandler handler) {
         this.player = player;
-        listener = new Listener() {@EventHandler
+        listener = new Listener() {
+            @EventHandler
             public void onInventoryClick(InventoryClickEvent event) {
             if ((event.getWhoClicked() instanceof Player)) {
                 event.getWhoClicked();

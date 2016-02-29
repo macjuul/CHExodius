@@ -13,9 +13,9 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Skull;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -59,22 +59,22 @@ import com.laytonsmith.core.exceptions.CRE.CREPlayerOfflineException;
 import com.laytonsmith.core.exceptions.CRE.CREThrowable;
 import com.laytonsmith.core.functions.AbstractFunction;
 
-import net.minecraft.server.v1_8_R3.BlockPosition;
-import net.minecraft.server.v1_8_R3.Blocks;
-import net.minecraft.server.v1_8_R3.EntityCreature;
-import net.minecraft.server.v1_8_R3.EntityLiving;
-import net.minecraft.server.v1_8_R3.EnumSkyBlock;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.MinecraftServer;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketPlayOutBlockAction;
-import net.minecraft.server.v1_8_R3.PacketPlayOutBlockBreakAnimation;
-import net.minecraft.server.v1_8_R3.PacketPlayOutCamera;
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
-import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
-import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
-import net.minecraft.server.v1_8_R3.PlayerConnection;
+import net.minecraft.server.v1_9_R1.BlockPosition;
+import net.minecraft.server.v1_9_R1.Blocks;
+import net.minecraft.server.v1_9_R1.EntityCreature;
+import net.minecraft.server.v1_9_R1.EntityLiving;
+import net.minecraft.server.v1_9_R1.EnumSkyBlock;
+import net.minecraft.server.v1_9_R1.IChatBaseComponent;
+import net.minecraft.server.v1_9_R1.MinecraftServer;
+import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_9_R1.Packet;
+import net.minecraft.server.v1_9_R1.PacketPlayOutBlockAction;
+import net.minecraft.server.v1_9_R1.PacketPlayOutBlockBreakAnimation;
+import net.minecraft.server.v1_9_R1.PacketPlayOutCamera;
+import net.minecraft.server.v1_9_R1.PacketPlayOutChat;
+import net.minecraft.server.v1_9_R1.PacketPlayOutPlayerListHeaderFooter;
+import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
+import net.minecraft.server.v1_9_R1.PlayerConnection;
 
 public class CHExodiusFunctions {
     public static String docs() {
@@ -465,7 +465,7 @@ public class CHExodiusFunctions {
 
             BlockPosition pos = new BlockPosition(x, y, z);
 
-            net.minecraft.server.v1_8_R3.World w = ((CraftWorld) Bukkit.getWorld(loc.get(3, t).val())).getHandle();
+            net.minecraft.server.v1_9_R1.World w = ((CraftWorld) Bukkit.getWorld(loc.get(3, t).val())).getHandle();
 
             w.a(EnumSkyBlock.BLOCK, pos, level);
 
@@ -782,6 +782,7 @@ public class CHExodiusFunctions {
 
         public Construct exec(Target t, Environment environment, Construct...args)
                 throws ConfigRuntimeException {
+            @SuppressWarnings("deprecation")
             double[] tps = MinecraftServer.getServer().recentTps;
             CArray ret = new CArray(t);
             double[] arrayOfDouble1;
@@ -1019,7 +1020,7 @@ public class CHExodiusFunctions {
 
             CArray spec = Static.getArray(args[1], t);
 
-            net.minecraft.server.v1_8_R3.Entity nmsEntity = ((CraftEntity) e).getHandle();
+            net.minecraft.server.v1_9_R1.Entity nmsEntity = ((CraftEntity) e).getHandle();
 
             NBTTagCompound tag = new NBTTagCompound();
 
