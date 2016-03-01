@@ -19,6 +19,7 @@ import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
@@ -1224,7 +1225,68 @@ public class CHExodiusFunctions {
         }
       
         public Version since() {
-            return CHVersion.V3_3_1;
+            return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class popen_villager_trade extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            Player p;
+            String u;
+            Boolean f;
+            
+            if(args.length == 2) {
+                p = (Player) ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer().getHandle();
+                u = args[0].val();
+                f = Boolean.valueOf(args[1].val());
+            } else {
+                p = Bukkit.getPlayer(args[0].val());
+                u = args[1].val();
+                f = Boolean.valueOf(args[2].val());
+            }
+            
+            World w = p.getWorld();
+            
+            for(Villager v : w.getEntitiesByClass(Villager.class)) {
+                if(v.getUniqueId().toString().equals(u)) {
+                    p.openMerchant(v, f);
+                    break;
+                }
+            }
+            
+            return CVoid.VOID;
+        }
+  
+        public String getName() {
+            return "popen_villager_trade";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {2, 3};
+        }
+      
+        public String docs() {
+            return "void {[Player], Entity ID, Boolean force} Opens a villager trading GUI. If force is true the current player trading with the villager exits the trade";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
         }
     }
 }
