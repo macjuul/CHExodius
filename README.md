@@ -17,6 +17,7 @@ Latest release: [download v2.2.3](https://github.com/macjuul/CHExodius/releases/
 + **get_tps() [SPIGOT ONLY]** - Gets an array containing the TPS of the last 1, 5 and 15 minutes.
 + **launch_instant_firework(locationArray, [color], [type], [flicker], [trail])** - Launch an instantly detonating firework. Color accepts an array containing 3 ints, using RGB
 +  **set_entity_advanced_spec(Entity UUID, Spec array)** - Set entity options that Command Helper does not support directly. Current specs are Ignited (For creepers) and NoAI
++  **popen_villager_trade([player], Villager UUID, force)** - Opens a villager trading GUI. If force is true the current player trading will be kicked out of the trade.
 
 ## Events:
 ###projectile_hit_block
