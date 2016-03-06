@@ -1,14 +1,13 @@
 package me.macjuul.chexodius;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -53,6 +52,7 @@ import com.laytonsmith.core.environments.Environment;
 import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.exceptions.CRE.CREBadEntityException;
 import com.laytonsmith.core.exceptions.CRE.CRECastException;
+import com.laytonsmith.core.exceptions.CRE.CREException;
 import com.laytonsmith.core.exceptions.CRE.CREFormatException;
 import com.laytonsmith.core.exceptions.CRE.CREIllegalArgumentException;
 import com.laytonsmith.core.exceptions.CRE.CRENotFoundException;
@@ -515,31 +515,7 @@ public class CHExodiusFunctions {
                 throws ConfigRuntimeException {
             final CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
             final CClosure callback = (CClosure) args[1];
-
-            int id = 421;
-            int data = 0;
-            String name = "Enter input...";
-            CArray lore = null;
-            List<String> loreList = null;
             
-            if (new Integer(args.length).equals(3)) {
-                CArray item = Static.getArray(args[2], t);
-                if (item.containsKey("type")) {
-                    id = Integer.valueOf(item.get("type", t).val());
-                }
-                if (item.containsKey("data")) {
-                    data = Integer.valueOf(item.get("data", t).val());
-                }
-                if (item.containsKey("meta")) {
-                    CArray meta = Static.getArray(item.get("meta", t), t);
-                    if (meta.containsKey("display")) {
-                        name = meta.get("display", t).val();
-                    }
-                    if (meta.containsKey("lore")) {
-                        lore = Static.getArray(meta.get("lore", t), t);
-                    }
-                }
-            }
             UtilAnvilGUI gui = new UtilAnvilGUI(p, new UtilAnvilGUI.AnvilClickEventHandler() {
                 public void onAnvilClick(UtilAnvilGUI.AnvilClickEvent event) {
                     if (event.getSlot() == UtilAnvilGUI.AnvilSlot.OUTPUT) {
@@ -553,21 +529,17 @@ public class CHExodiusFunctions {
                     }
                 }
             });
-            @SuppressWarnings("deprecation")
-            ItemStack item = new ItemStack(id, 1, (short) data);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(name);
             
-            if(lore != null) {
-                loreList = new ArrayList<String>();
-                for(int i = 0; i < lore.size(); i++) {
-                    String line = lore.get(i, t).val();
-                    loreList.add(line);
-                }
-                meta.setLore(loreList);
+            ItemStack item;
+            if(args.length == 3) {
+                item = (ItemStack) ObjectGenerator.GetGenerator().item(Static.getArray(args[2], t), t).getHandle();
+            } else {
+                item = new ItemStack(Material.NAME_TAG);
+                ItemMeta m = item.getItemMeta();
+                m.setDisplayName("Enter input...");
+                item.setItemMeta(m);
             }
             
-            item.setItemMeta(meta);
 
             gui.setSlot(UtilAnvilGUI.AnvilSlot.INPUT_LEFT, item);
 
@@ -1283,6 +1255,236 @@ public class CHExodiusFunctions {
       
         public String docs() {
             return "void {[Player], Entity ID, Boolean force} Opens a villager trading GUI. If force is true the current player trading with the villager exits the trade";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class open_elytra extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            Player p;
+            
+            if(args.length == 0) {
+                p = (Player) ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer().getHandle();
+            } else {
+                p = Bukkit.getPlayer(args[0].val());
+            }
+            
+            if(p.getEquipment().getChestplate().getType() != Material.ELYTRA || ((Entity) p).isOnGround()) {
+                throw new CREException("The specified player is not ready to fly", t);
+            }
+            
+            ((CraftPlayer) p).getHandle().setFlag(7, true);
+            
+            return CVoid.VOID;
+        }
+  
+        public String getName() {
+            return "open_elytra";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {0, 1};
+        }
+      
+        public String docs() {
+            return "void {[Player]} Opens the players Elytra";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class set_entity_glowing extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            Entity e = (Entity) Static.getEntity(args[0], t).getHandle();
+            e.setGlowing(Static.getBoolean(args[1]));
+            
+            return CVoid.VOID;
+        }
+  
+        public String getName() {
+            return "set_entity_glowing";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {2};
+        }
+      
+        public String docs() {
+            return "void {Entity, glowing} Sets the entity to glow";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class get_entity_glowing extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            Entity e = (Entity) Static.getEntity(args[0], t).getHandle();
+            
+            return CBoolean.GenerateCBoolean(e.isGlowing(), t);
+        }
+  
+        public String getName() {
+            return "get_entity_glowing";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {1};
+        }
+      
+        public String docs() {
+            return "boolean {Entity} gets if the entity is glowing";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class set_pglowing extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            Player p;
+            Boolean g;
+            
+            if(args.length == 1) {
+                p = (Player) ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer().getHandle();
+                g = Boolean.valueOf(args[0].val());
+            } else {
+                p = Bukkit.getPlayer(args[0].val());
+                g = Boolean.valueOf(args[1].val());
+            }
+            
+            p.setGlowing(g);
+            
+            return CVoid.VOID;
+        }
+  
+        public String getName() {
+            return "set_pglowing";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {1, 2};
+        }
+      
+        public String docs() {
+            return "void {[Player], glowing} Sets the player to glow";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class get_pglowing extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            Player p;
+            
+            if(args.length == 0) {
+                p = (Player) ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer().getHandle();
+            } else {
+                p = Bukkit.getPlayer(args[0].val());
+            }
+            
+            return CBoolean.GenerateCBoolean(p.isGlowing(), t);
+        }
+  
+        public String getName() {
+            return "get_pglowing";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {0, 1};
+        }
+      
+        public String docs() {
+            return "void {[Player]} Gets if the player is glowing";
         }
       
         public Version since() {
