@@ -1263,7 +1263,62 @@ public class CHExodiusFunctions {
     }
     
     @api
-    public static class open_elytra extends AbstractFunction {
+    public static class set_pgliding extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            Player p;
+            boolean glide;
+            
+            if(args.length == 1) {
+                p = (Player) ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer().getHandle();
+                glide = Static.getBoolean(args[0]);
+            } else {
+                p = Bukkit.getPlayer(args[0].val());
+                glide = Static.getBoolean(args[1]);
+            }
+            
+            if(p.getEquipment().getChestplate().getType() != Material.ELYTRA || ((Entity) p).isOnGround()) {
+                throw new CREException("The specified player is not ready to fly", t);
+            }
+            
+            ((CraftPlayer) p).setGliding(glide);
+            
+            return CVoid.VOID;
+        }
+  
+        public String getName() {
+            return "set_pgliding";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {1, 2};
+        }
+      
+        public String docs() {
+            return "void {[Player], boolean} Sets the player to glide";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class get_pgliding extends AbstractFunction {
         @SuppressWarnings("unchecked")
         public Class<? extends CREThrowable>[] thrown() {
             return new Class[] {
@@ -1288,17 +1343,11 @@ public class CHExodiusFunctions {
                 p = Bukkit.getPlayer(args[0].val());
             }
             
-            if(p.getEquipment().getChestplate().getType() != Material.ELYTRA || ((Entity) p).isOnGround()) {
-                throw new CREException("The specified player is not ready to fly", t);
-            }
-            
-            ((CraftPlayer) p).getHandle().setFlag(7, true);
-            
-            return CVoid.VOID;
+            return CBoolean.GenerateCBoolean(((CraftPlayer) p).isGliding(), t);
         }
   
         public String getName() {
-            return "open_elytra";
+            return "get_pgliding";
         }
       
         public Integer[] numArgs() {
@@ -1306,7 +1355,7 @@ public class CHExodiusFunctions {
         }
       
         public String docs() {
-            return "void {[Player]} Opens the players Elytra";
+            return "boolean {[Player]} Returns true if the player is gliding";
         }
       
         public Version since() {

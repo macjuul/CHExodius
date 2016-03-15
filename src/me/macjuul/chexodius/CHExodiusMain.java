@@ -6,11 +6,12 @@ import com.laytonsmith.commandhelper.CommandHelperPlugin;
 import com.laytonsmith.core.extensions.AbstractExtension;
 import com.laytonsmith.core.extensions.MSExtension;
 
+import me.macjuul.chexodius.abstraction.event.EventListeners;
+
 @MSExtension("CHExodius")
 public class CHExodiusMain
 extends AbstractExtension {
     public static CommandHelperPlugin chp;
-    public static CHExodiusEventListener listener;
 
     public Version getVersion() {
         return new SimpleVersion(2, 2, 3);
@@ -18,11 +19,12 @@ extends AbstractExtension {
 
     public void onShutdown() {
         System.out.println("CHExodius " + getVersion() + " has sucessfully been disabled!");
+        EventListeners.unregister();
     }
 
     public void onStartup() {
         System.out.println("CHExodius " + getVersion() + " has sucessfully been enabled!");
         chp = CommandHelperPlugin.self;
-        listener = new CHExodiusEventListener(chp);
+        EventListeners.register();
     }
 }
