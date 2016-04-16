@@ -1,4 +1,4 @@
-package me.macjuul.chexodius;
+package me.macjuul.chexodius.utility;
 
 import java.util.UUID;
 
@@ -11,7 +11,7 @@ import org.bukkit.entity.Entity;
 import com.laytonsmith.core.constructs.CArray;
 import com.laytonsmith.core.constructs.Target;
 
-public class UtilClass {
+public class ExoUtil {
 
     /**
      * Get an entity object from UUID

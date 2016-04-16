@@ -6,10 +6,10 @@ import com.laytonsmith.commandhelper.CommandHelperPlugin;
 import com.laytonsmith.core.extensions.AbstractExtension;
 import com.laytonsmith.core.extensions.MSExtension;
 
-import me.macjuul.chexodius.abstraction.event.EventListeners;
+import me.macjuul.chexodius.events.EventListeners;
 
 @MSExtension("CHExodius")
-public class CHExodiusMain
+public class LifeCycle
 extends AbstractExtension {
     public static CommandHelperPlugin chp;
 

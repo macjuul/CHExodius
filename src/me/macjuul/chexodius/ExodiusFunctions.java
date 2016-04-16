@@ -60,6 +60,9 @@ import com.laytonsmith.core.exceptions.CRE.CREPlayerOfflineException;
 import com.laytonsmith.core.exceptions.CRE.CREThrowable;
 import com.laytonsmith.core.functions.AbstractFunction;
 
+import me.macjuul.chexodius.utility.AnvilGUI;
+import me.macjuul.chexodius.utility.CustomEntityFirework;
+import me.macjuul.chexodius.utility.ExoUtil;
 import net.minecraft.server.v1_9_R1.BlockPosition;
 import net.minecraft.server.v1_9_R1.Blocks;
 import net.minecraft.server.v1_9_R1.EntityCreature;
@@ -77,7 +80,7 @@ import net.minecraft.server.v1_9_R1.PacketPlayOutPlayerListHeaderFooter;
 import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_9_R1.PlayerConnection;
 
-public class CHExodiusFunctions {
+public class ExodiusFunctions {
     public static String docs() {
         return "This Extension will add some sick things to CommandHelper!";
     }
@@ -516,9 +519,9 @@ public class CHExodiusFunctions {
             final CraftPlayer p = (CraftPlayer) Static.GetPlayer(args[0], t).getHandle();
             final CClosure callback = (CClosure) args[1];
             
-            UtilAnvilGUI gui = new UtilAnvilGUI(p, new UtilAnvilGUI.AnvilClickEventHandler() {
-                public void onAnvilClick(UtilAnvilGUI.AnvilClickEvent event) {
-                    if (event.getSlot() == UtilAnvilGUI.AnvilSlot.OUTPUT) {
+            AnvilGUI gui = new AnvilGUI(p, new AnvilGUI.AnvilClickEventHandler() {
+                public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
+                    if (event.getSlot() == AnvilGUI.AnvilSlot.OUTPUT) {
                         event.setWillClose(true);
                         event.setWillDestroy(true);
 
@@ -541,7 +544,7 @@ public class CHExodiusFunctions {
             }
             
 
-            gui.setSlot(UtilAnvilGUI.AnvilSlot.INPUT_LEFT, item);
+            gui.setSlot(AnvilGUI.AnvilSlot.INPUT_LEFT, item);
 
             gui.open();
 
@@ -655,7 +658,7 @@ public class CHExodiusFunctions {
             if (args[1] instanceof CNull) {
                 victim = p;
             } else {
-                victim = (CraftEntity) UtilClass.getEntityByID(args[1].val());
+                victim = (CraftEntity) ExoUtil.getEntityByID(args[1].val());
                 if (victim == null) {
                     throw new CREBadEntityException("Entity " + args[1].val() + " does not exist!", t);
                 }
@@ -707,8 +710,8 @@ public class CHExodiusFunctions {
 
         public Construct exec(Target t, Environment environment, Construct...args)
                 throws ConfigRuntimeException {
-            Entity attacker = UtilClass.getEntityByID(args[0].val());
-            Entity victim = UtilClass.getEntityByID(args[1].val());
+            Entity attacker = ExoUtil.getEntityByID(args[0].val());
+            Entity victim = ExoUtil.getEntityByID(args[1].val());
 
             EntityCreature ec = (EntityCreature)((CraftEntity) attacker).getHandle();
             ec.b((EntityLiving)((CraftEntity) victim).getHandle());
@@ -943,7 +946,7 @@ public class CHExodiusFunctions {
 
             FireworkEffect effect = builder.flicker(flicker.booleanValue()).trail(trail.booleanValue()).build();
 
-            UtilCustomEntityFirework.spawn(loc, effect, new Player[0]);
+            CustomEntityFirework.spawn(loc, effect, new Player[0]);
 
             return CVoid.VOID;
         }
@@ -986,7 +989,7 @@ public class CHExodiusFunctions {
         }
 
         public Construct exec(Target t, Environment environment, Construct...args) throws ConfigRuntimeException {
-            Entity e = UtilClass.getEntityByID(args[0].val());
+            Entity e = ExoUtil.getEntityByID(args[0].val());
             if(e == null) {
                 throw new CREBadEntityException("The entity with ID " + args[0].val() + " does not exist", t);
             }
@@ -1053,7 +1056,7 @@ public class CHExodiusFunctions {
             CArray location = Static.getArray(args[0], t);
             String name = args[1].val();
             
-            Block block = UtilClass.getLocation(location).getBlock();
+            Block block = ExoUtil.getLocation(location).getBlock();
             
             BlockState blockState = block.getState();
              
@@ -1106,7 +1109,7 @@ public class CHExodiusFunctions {
             CArray location = Static.getArray(args[0], t);
             String name;
             
-            Location loc = UtilClass.getLocation(location);
+            Location loc = ExoUtil.getLocation(location);
             Block block = loc.getBlock();
             
             BlockState blockState = block.getState();
@@ -1310,230 +1313,6 @@ public class CHExodiusFunctions {
       
         public String docs() {
             return "void {[Player], boolean} Sets the player to glide";
-        }
-      
-        public Version since() {
-            return CHVersion.V3_3_2;
-        }
-    }
-    
-    @api
-    public static class get_pgliding extends AbstractFunction {
-        @SuppressWarnings("unchecked")
-        public Class<? extends CREThrowable>[] thrown() {
-            return new Class[] {
-                    CRECastException.class
-            };
-        }
-      
-        public boolean isRestricted() {
-            return false;
-        }
-      
-        public Boolean runAsync() {
-            return Boolean.valueOf(false);
-        }
-      
-        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
-            Player p;
-            
-            if(args.length == 0) {
-                p = (Player) ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer().getHandle();
-            } else {
-                p = Bukkit.getPlayer(args[0].val());
-            }
-            
-            return CBoolean.GenerateCBoolean(((CraftPlayer) p).isGliding(), t);
-        }
-  
-        public String getName() {
-            return "get_pgliding";
-        }
-      
-        public Integer[] numArgs() {
-            return new Integer[] {0, 1};
-        }
-      
-        public String docs() {
-            return "boolean {[Player]} Returns true if the player is gliding";
-        }
-      
-        public Version since() {
-            return CHVersion.V3_3_2;
-        }
-    }
-    
-    @api
-    public static class set_entity_glowing extends AbstractFunction {
-        @SuppressWarnings("unchecked")
-        public Class<? extends CREThrowable>[] thrown() {
-            return new Class[] {
-                    CRECastException.class
-            };
-        }
-      
-        public boolean isRestricted() {
-            return false;
-        }
-      
-        public Boolean runAsync() {
-            return Boolean.valueOf(false);
-        }
-      
-        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
-            Entity e = (Entity) Static.getEntity(args[0], t).getHandle();
-            e.setGlowing(Static.getBoolean(args[1]));
-            
-            return CVoid.VOID;
-        }
-  
-        public String getName() {
-            return "set_entity_glowing";
-        }
-      
-        public Integer[] numArgs() {
-            return new Integer[] {2};
-        }
-      
-        public String docs() {
-            return "void {Entity, glowing} Sets the entity to glow";
-        }
-      
-        public Version since() {
-            return CHVersion.V3_3_2;
-        }
-    }
-    
-    @api
-    public static class get_entity_glowing extends AbstractFunction {
-        @SuppressWarnings("unchecked")
-        public Class<? extends CREThrowable>[] thrown() {
-            return new Class[] {
-                    CRECastException.class
-            };
-        }
-      
-        public boolean isRestricted() {
-            return false;
-        }
-      
-        public Boolean runAsync() {
-            return Boolean.valueOf(false);
-        }
-      
-        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
-            Entity e = (Entity) Static.getEntity(args[0], t).getHandle();
-            
-            return CBoolean.GenerateCBoolean(e.isGlowing(), t);
-        }
-  
-        public String getName() {
-            return "get_entity_glowing";
-        }
-      
-        public Integer[] numArgs() {
-            return new Integer[] {1};
-        }
-      
-        public String docs() {
-            return "boolean {Entity} gets if the entity is glowing";
-        }
-      
-        public Version since() {
-            return CHVersion.V3_3_2;
-        }
-    }
-    
-    @api
-    public static class set_pglowing extends AbstractFunction {
-        @SuppressWarnings("unchecked")
-        public Class<? extends CREThrowable>[] thrown() {
-            return new Class[] {
-                    CRECastException.class
-            };
-        }
-      
-        public boolean isRestricted() {
-            return false;
-        }
-      
-        public Boolean runAsync() {
-            return Boolean.valueOf(false);
-        }
-      
-        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
-            Player p;
-            Boolean g;
-            
-            if(args.length == 1) {
-                p = (Player) ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer().getHandle();
-                g = Boolean.valueOf(args[0].val());
-            } else {
-                p = Bukkit.getPlayer(args[0].val());
-                g = Boolean.valueOf(args[1].val());
-            }
-            
-            p.setGlowing(g);
-            
-            return CVoid.VOID;
-        }
-  
-        public String getName() {
-            return "set_pglowing";
-        }
-      
-        public Integer[] numArgs() {
-            return new Integer[] {1, 2};
-        }
-      
-        public String docs() {
-            return "void {[Player], glowing} Sets the player to glow";
-        }
-      
-        public Version since() {
-            return CHVersion.V3_3_2;
-        }
-    }
-    
-    @api
-    public static class get_pglowing extends AbstractFunction {
-        @SuppressWarnings("unchecked")
-        public Class<? extends CREThrowable>[] thrown() {
-            return new Class[] {
-                    CRECastException.class
-            };
-        }
-      
-        public boolean isRestricted() {
-            return false;
-        }
-      
-        public Boolean runAsync() {
-            return Boolean.valueOf(false);
-        }
-      
-        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
-            Player p;
-            
-            if(args.length == 0) {
-                p = (Player) ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer().getHandle();
-            } else {
-                p = Bukkit.getPlayer(args[0].val());
-            }
-            
-            return CBoolean.GenerateCBoolean(p.isGlowing(), t);
-        }
-  
-        public String getName() {
-            return "get_pglowing";
-        }
-      
-        public Integer[] numArgs() {
-            return new Integer[] {0, 1};
-        }
-      
-        public String docs() {
-            return "void {[Player]} Gets if the player is glowing";
         }
       
         public Version since() {
