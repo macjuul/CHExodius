@@ -1,4 +1,4 @@
-package me.macjuul.chexodius;
+package me.macjuul.chexodius.utility;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package me.macjuul.chexodius;
+package me.macjuul.chexodius.enums;
 
 import com.laytonsmith.PureUtilities.Common.StringUtils;
 import com.laytonsmith.core.constructs.Target;
