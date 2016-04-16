@@ -1266,7 +1266,7 @@ public class ExodiusFunctions {
     }
     
     @api
-    public static class set_pgliding extends AbstractFunction {
+    public static class center_chat_message extends AbstractFunction {
         @SuppressWarnings("unchecked")
         public Class<? extends CREThrowable>[] thrown() {
             return new Class[] {
@@ -1283,36 +1283,19 @@ public class ExodiusFunctions {
         }
       
         public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
-            Player p;
-            boolean glide;
-            
-            if(args.length == 1) {
-                p = (Player) ((CommandHelperEnvironment)environment.getEnv(CommandHelperEnvironment.class)).GetPlayer().getHandle();
-                glide = Static.getBoolean(args[0]);
-            } else {
-                p = Bukkit.getPlayer(args[0].val());
-                glide = Static.getBoolean(args[1]);
-            }
-            
-            if(p.getEquipment().getChestplate().getType() != Material.ELYTRA || ((Entity) p).isOnGround()) {
-                throw new CREException("The specified player is not ready to fly", t);
-            }
-            
-            ((CraftPlayer) p).setGliding(glide);
-            
-            return CVoid.VOID;
+            return ExoUtil.getCenteredMessage(args[0].val());
         }
   
         public String getName() {
-            return "set_pgliding";
+            return "center_chat_message";
         }
       
         public Integer[] numArgs() {
-            return new Integer[] {1, 2};
+            return new Integer[] {1};
         }
       
         public String docs() {
-            return "void {[Player], boolean} Sets the player to glide";
+            return "String {String} Returns a centered version of the given string";
         }
       
         public Version since() {
