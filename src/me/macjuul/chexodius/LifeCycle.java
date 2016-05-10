@@ -14,7 +14,7 @@ extends AbstractExtension {
     public static CommandHelperPlugin chp;
 
     public Version getVersion() {
-        return new SimpleVersion(2, 2, 3);
+        return new SimpleVersion(2, 3, 0);
     }
 
     public void onShutdown() {

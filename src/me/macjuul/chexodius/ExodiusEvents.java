@@ -28,6 +28,8 @@ import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.exceptions.EventException;
 import com.laytonsmith.core.exceptions.PrefilterNonMatchException;
 
+import me.macjuul.chexodius.events.MCEntityCombustEvent;
+
 public class ExodiusEvents {
 	
 	public static String docs() {
@@ -95,6 +97,56 @@ public class ExodiusEvents {
 		}
 
 		public boolean modifyEvent(String key, Construct value, BindableEvent event) throws ConfigRuntimeException {
+			return false;
+		}
+
+		public Version since() {
+			return CHVersion.V3_3_1;
+		}
+
+		public Driver driver() {
+			return Driver.EXTENSION;
+		}
+	}
+	
+	@api
+	public static class entity_combust extends AbstractEvent {
+		public String getName() {
+			return "entity_combust";
+		}
+
+		public String docs() {
+			return "";
+		}
+
+		public boolean matches(Map<String, Construct> prefilter, BindableEvent e) throws PrefilterNonMatchException {
+			return true;
+		}
+
+		public BindableEvent convert(CArray manualObject, Target t) {
+			return null;
+		}
+
+		public Map<String, Construct> evaluate(BindableEvent e) throws EventException {
+			Map<String, Construct> retn = new HashMap<String, Construct>();
+			if ((e instanceof MCEntityCombustEvent)) {
+				MCEntityCombustEvent evt = (MCEntityCombustEvent) e;
+				
+				retn.put("type", new CString(evt.getEntity().getType().name(), Target.UNKNOWN));
+				retn.put("id", new CString(evt.getEntity().getUniqueId().toString(), Target.UNKNOWN));
+				retn.put("duration", new CInt(evt.getDuration(), Target.UNKNOWN));
+			}
+			return retn;
+		}
+
+		public boolean modifyEvent(String key, Construct value, BindableEvent e) throws ConfigRuntimeException {
+			MCEntityCombustEvent evt = (MCEntityCombustEvent) e;
+
+			if(key.equalsIgnoreCase("duration") && value instanceof CInt) {
+				evt.setDuration(Integer.parseInt(value.val()));
+				return true;
+			}
+
 			return false;
 		}
 

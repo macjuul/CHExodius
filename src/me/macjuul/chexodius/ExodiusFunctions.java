@@ -12,9 +12,9 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Skull;
-import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_9_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -62,22 +62,22 @@ import com.laytonsmith.core.functions.AbstractFunction;
 import me.macjuul.chexodius.utility.AnvilGUI;
 import me.macjuul.chexodius.utility.CustomEntityFirework;
 import me.macjuul.chexodius.utility.ExoUtil;
-import net.minecraft.server.v1_9_R1.BlockPosition;
-import net.minecraft.server.v1_9_R1.Blocks;
-import net.minecraft.server.v1_9_R1.EntityCreature;
-import net.minecraft.server.v1_9_R1.EntityLiving;
-import net.minecraft.server.v1_9_R1.EnumSkyBlock;
-import net.minecraft.server.v1_9_R1.IChatBaseComponent;
-import net.minecraft.server.v1_9_R1.MinecraftServer;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
-import net.minecraft.server.v1_9_R1.Packet;
-import net.minecraft.server.v1_9_R1.PacketPlayOutBlockAction;
-import net.minecraft.server.v1_9_R1.PacketPlayOutBlockBreakAnimation;
-import net.minecraft.server.v1_9_R1.PacketPlayOutCamera;
-import net.minecraft.server.v1_9_R1.PacketPlayOutChat;
-import net.minecraft.server.v1_9_R1.PacketPlayOutPlayerListHeaderFooter;
-import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
-import net.minecraft.server.v1_9_R1.PlayerConnection;
+import net.minecraft.server.v1_9_R2.BlockPosition;
+import net.minecraft.server.v1_9_R2.Blocks;
+import net.minecraft.server.v1_9_R2.EntityCreature;
+import net.minecraft.server.v1_9_R2.EntityLiving;
+import net.minecraft.server.v1_9_R2.EnumSkyBlock;
+import net.minecraft.server.v1_9_R2.IChatBaseComponent;
+import net.minecraft.server.v1_9_R2.MinecraftServer;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.Packet;
+import net.minecraft.server.v1_9_R2.PacketPlayOutBlockAction;
+import net.minecraft.server.v1_9_R2.PacketPlayOutBlockBreakAnimation;
+import net.minecraft.server.v1_9_R2.PacketPlayOutCamera;
+import net.minecraft.server.v1_9_R2.PacketPlayOutChat;
+import net.minecraft.server.v1_9_R2.PacketPlayOutPlayerListHeaderFooter;
+import net.minecraft.server.v1_9_R2.PacketPlayOutTitle;
+import net.minecraft.server.v1_9_R2.PlayerConnection;
 
 public class ExodiusFunctions {
     public static String docs() {
@@ -468,7 +468,7 @@ public class ExodiusFunctions {
 
             BlockPosition pos = new BlockPosition(x, y, z);
 
-            net.minecraft.server.v1_9_R1.World w = ((CraftWorld) Bukkit.getWorld(loc.get(3, t).val())).getHandle();
+            net.minecraft.server.v1_9_R2.World w = ((CraftWorld) Bukkit.getWorld(loc.get(3, t).val())).getHandle();
 
             w.a(EnumSkyBlock.BLOCK, pos, level);
 
@@ -995,7 +995,7 @@ public class ExodiusFunctions {
 
             CArray spec = Static.getArray(args[1], t);
 
-            net.minecraft.server.v1_9_R1.Entity nmsEntity = ((CraftEntity) e).getHandle();
+            net.minecraft.server.v1_9_R2.Entity nmsEntity = ((CraftEntity) e).getHandle();
 
             NBTTagCompound tag = new NBTTagCompound();
 
@@ -1266,39 +1266,39 @@ public class ExodiusFunctions {
     
     @api
     public static class center_chat_message extends AbstractFunction {
-        @SuppressWarnings("unchecked")
-        public Class<? extends CREThrowable>[] thrown() {
-            return new Class[] {
-                    CRECastException.class
-            };
-        }
-      
-        public boolean isRestricted() {
-            return false;
-        }
-      
-        public Boolean runAsync() {
-            return Boolean.valueOf(false);
-        }
-      
-        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
-            return ExoUtil.getCenteredMessage(args[0].val());
-        }
-  
-        public String getName() {
-            return "center_chat_message";
-        }
-      
-        public Integer[] numArgs() {
-            return new Integer[] {1};
-        }
-      
-        public String docs() {
-            return "String {String} Returns a centered version of the given string";
-        }
-      
-        public Version since() {
-            return CHVersion.V3_3_2;
-        }
+    	@SuppressWarnings("unchecked")
+    	public Class<? extends CREThrowable>[] thrown() {
+    		return new Class[] {
+    				CRECastException.class
+    		};
+    	}
+    	
+    	public boolean isRestricted() {
+    		return false;
+    	}
+    	
+    	public Boolean runAsync() {
+    		return Boolean.valueOf(false);
+    	}
+    	
+    	public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+    		return ExoUtil.getCenteredMessage(args[0].val());
+    	}
+    	
+    	public String getName() {
+    		return "center_chat_message";
+    	}
+    	
+    	public Integer[] numArgs() {
+    		return new Integer[] {1};
+    	}
+    	
+    	public String docs() {
+    		return "String {String} Returns a centered version of the given string";
+    	}
+    	
+    	public Version since() {
+    		return CHVersion.V3_3_2;
+    	}
     }
 }
