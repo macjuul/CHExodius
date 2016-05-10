@@ -1,7 +1,7 @@
 # CHExodius
 Adds a bunch of random handy functions & events to CommandHelper. Some of them require NMS code so this Extensions will probably break quite often. If that happens check here for an updated version or create an issue ticket.
 
-Latest release: [download v2.2.3](https://github.com/macjuul/CHExodius/releases/tag/v2.2.3)
+Latest release: [download v2.3.0](https://github.com/macjuul/CHExodius/releases/tag/v2.3.0)
 
 ## Functions:
 + **set_tab_msg(Player, Header, Footer)** - Set a TAB list header & footer message
