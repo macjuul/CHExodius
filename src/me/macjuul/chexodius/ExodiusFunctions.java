@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.laytonsmith.PureUtilities.Version;
 import com.laytonsmith.PureUtilities.Common.StringUtils;
+import com.laytonsmith.abstraction.MCLivingEntity;
 import com.laytonsmith.abstraction.MCLocation;
 import com.laytonsmith.abstraction.MCPlayer;
 import com.laytonsmith.abstraction.MCWorldCreator;
@@ -1001,10 +1002,6 @@ public class ExodiusFunctions {
 
             nmsEntity.c(tag);
 
-            if(spec.containsKey("NoAI")) {
-                tag.setBoolean("NoAI", Boolean.valueOf(spec.get("NoAI", t).val()));
-            }
-
             if(spec.containsKey("Ignited")) {
                 tag.setBoolean("ignited", Boolean.valueOf(spec.get("Ignited", t).val()));
             }
@@ -1257,6 +1254,88 @@ public class ExodiusFunctions {
       
         public String docs() {
             return "void {[Player], Entity ID, Boolean force} Opens a villager trading GUI. If force is true the current player trading with the villager exits the trade";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class set_entity_ai extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            LivingEntity e = (LivingEntity) Static.getLivingEntity(args[0], t).getHandle();
+            
+            e.setAI(Boolean.valueOf(args[1].val()));
+            
+            return CVoid.VOID;
+        }
+  
+        public String getName() {
+            return "set_entity_ai";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {2};
+        }
+      
+        public String docs() {
+            return "void {Entity target, Boolean ai} Enable or disable an entities AI";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
+        }
+    }
+    
+    @api
+    public static class get_entity_ai extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return Boolean.valueOf(false);
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+            LivingEntity e = (LivingEntity) Static.getLivingEntity(args[0], t).getHandle();
+            
+            return CBoolean.GenerateCBoolean(e.hasAI(), t);
+        }
+  
+        public String getName() {
+            return "get_entity_ai";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {1};
+        }
+      
+        public String docs() {
+            return "Boolean {Entity target} Returns true if the entity has AI enabled";
         }
       
         public Version since() {
