@@ -1,7 +1,7 @@
 # CHExodius
 Adds a bunch of random handy functions & events to CommandHelper. Some of them require NMS code so this Extensions will probably break quite often. If that happens check here for an updated version or create an issue ticket.
 
-Latest release: [download v2.2.3](https://github.com/macjuul/CHExodius/releases/tag/v2.2.3)
+Latest release: [download v2.3.0](https://github.com/macjuul/CHExodius/releases/tag/v2.3.0)
 
 ## Functions:
 + **set_tab_msg(Player, Header, Footer)** - Set a TAB list header & footer message
@@ -18,6 +18,7 @@ Latest release: [download v2.2.3](https://github.com/macjuul/CHExodius/releases/
 + **launch_instant_firework(locationArray, [color], [type], [flicker], [trail])** - Launch an instantly detonating firework. Color accepts an array containing 3 ints, using RGB
 +  **set_entity_advanced_spec(Entity UUID, Spec array)** - Set entity options that Command Helper does not support directly. Current specs are Ignited (For creepers) and NoAI
 +  **popen_villager_trade([player], Villager UUID, force)** - Opens a villager trading GUI. If force is true the current player trading will be kicked out of the trade.
++  **center_chat_message(String message)** - Centers a string for a nice chat message effect
 
 ## Events:
 ###projectile_hit_block
@@ -25,3 +26,13 @@ Latest release: [download v2.2.3](https://github.com/macjuul/CHExodius/releases/
 * id - The entity ID of the projectile
 * type - returns the entity type of the entity that hit a block
 * location - returns the location of _the block the arrow hit_
+
+
+###entity_combust
+*Event data:*
+* id - The entity ID of the projectile
+* type - returns the entity type of the entity that hit a block
+* duration - The duration the fire will last for
+
+*Mutable fields:*
+* duration
