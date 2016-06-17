@@ -27,7 +27,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.laytonsmith.PureUtilities.Version;
 import com.laytonsmith.PureUtilities.Common.StringUtils;
-import com.laytonsmith.abstraction.MCLivingEntity;
 import com.laytonsmith.abstraction.MCLocation;
 import com.laytonsmith.abstraction.MCPlayer;
 import com.laytonsmith.abstraction.MCWorldCreator;
@@ -1297,5 +1296,51 @@ public class ExodiusFunctions {
     	public Version since() {
     		return CHVersion.V3_3_2;
     	}
+    }
+    
+    @api
+    public static class get_pconnection_speed extends AbstractFunction {
+        @SuppressWarnings("unchecked")
+        public Class<? extends CREThrowable>[] thrown() {
+            return new Class[] {
+                    CRECastException.class
+            };
+        }
+      
+        public boolean isRestricted() {
+            return false;
+        }
+      
+        public Boolean runAsync() {
+            return false;
+        }
+      
+        public Construct exec(Target t, Environment environment, Construct... args) throws ConfigRuntimeException {
+        	MCPlayer p;
+        	
+        	if(args.length == 0) {
+        		p = ((CommandHelperEnvironment) environment.getEnv(CommandHelperEnvironment.class)).GetPlayer();
+        	} else {
+        		p = Static.GetPlayer(args[0], t);
+        	}
+        	
+            return new CInt(((CraftPlayer) (Player) p.getHandle()).getHandle().ping, t);
+        }
+  
+        public String getName() {
+            return "get_pconnection_speed";
+        }
+      
+        public Integer[] numArgs() {
+            return new Integer[] {0, 1};
+        }
+      
+        public String docs() {
+            return "Integer {[Player]} Returns the players connection speed (ping)";
+        }
+      
+        public Version since() {
+            return CHVersion.V3_3_2;
+        }
     }
 }
