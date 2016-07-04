@@ -532,18 +532,24 @@ public class ExodiusFunctions {
                 }
             });
             
-            ItemStack item;
+            ItemStack left;
+            
             if(args.length == 3) {
-                item = (ItemStack) ObjectGenerator.GetGenerator().item(Static.getArray(args[2], t), t).getHandle();
+                left = (ItemStack) ObjectGenerator.GetGenerator().item(Static.getArray(args[2], t), t).getHandle();
             } else {
-                item = new ItemStack(Material.NAME_TAG);
-                ItemMeta m = item.getItemMeta();
+            	left = new ItemStack(Material.NAME_TAG);
+                ItemMeta m = left.getItemMeta();
                 m.setDisplayName("Enter input...");
-                item.setItemMeta(m);
+                left.setItemMeta(m);
             }
             
-
-            gui.setSlot(AnvilGUI.AnvilSlot.INPUT_LEFT, item);
+            gui.setSlot(AnvilGUI.AnvilSlot.INPUT_LEFT, left);
+            
+            if(args.length == 4) {
+            	ItemStack middle = (ItemStack) ObjectGenerator.GetGenerator().item(Static.getArray(args[3], t), t).getHandle();
+                
+                gui.setSlot(AnvilGUI.AnvilSlot.INPUT_RIGHT, middle);
+            }
 
             gui.open();
 
@@ -555,13 +561,11 @@ public class ExodiusFunctions {
         }
 
         public Integer[] numArgs() {
-            return new Integer[] {
-                    Integer.valueOf(2), Integer.valueOf(3)
-            };
+            return new Integer[] {2, 3, 4};
         }
 
         public String docs() {
-            return "void {player, callback closure, [item array]} Open an Anvil GUI input for player, calling the callback closure when the player submits the input." + "The text the player typed in gets returned to the closure. Item can be an item array, already only the keys 'type', 'data' and 'display' are used. ";
+            return "void {player, callback closure, [left item array], [right item array]} Open an Anvil GUI input for player, calling the callback closure when the player submits the input." + "The text the player typed in gets returned to the closure. Item can be an item array, already only the keys 'type', 'data' and 'display' are used. ";
         }
 
         public Version since() {
