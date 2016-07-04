@@ -2,15 +2,15 @@ package me.macjuul.chexodius.utility;
 
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_9_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import net.minecraft.server.v1_9_R2.EntityFireworks;
-import net.minecraft.server.v1_9_R2.PacketPlayOutEntityStatus;
-import net.minecraft.server.v1_9_R2.World;
+import net.minecraft.server.v1_10_R1.EntityFireworks;
+import net.minecraft.server.v1_10_R1.PacketPlayOutEntityStatus;
+import net.minecraft.server.v1_10_R1.World;
 
 public class CustomEntityFirework extends EntityFireworks {
     public static void spawn(Location location, FireworkEffect effect, Player... players) {
