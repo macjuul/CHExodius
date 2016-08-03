@@ -1,5 +1,10 @@
 package me.macjuul.chexodius;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+
 import com.laytonsmith.PureUtilities.SimpleVersion;
 import com.laytonsmith.PureUtilities.Version;
 import com.laytonsmith.commandhelper.CommandHelperPlugin;
@@ -26,5 +31,6 @@ extends AbstractExtension {
         System.out.println("CHExodius " + getVersion() + " has sucessfully been enabled!");
         chp = CommandHelperPlugin.self;
         EventListeners.register();
+        
     }
 }
