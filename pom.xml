@@ -5,8 +5,57 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>CHExodius CommandHelper extension</name>
   <description>Adds random stuff I use for my server ExodiusMC</description>
+  
+  <repositories>
+	  <repository>
+	    <id>dmulloy2-repo</id>
+	    <url>http://repo.dmulloy2.net/content/groups/public/</url>
+	  </repository>
+	  
+	  <repository>
+        <id>spigot-repo</id>
+        <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+      </repository>
+      
+      <repository>
+        <id>sk89q-repo</id>
+        <url>http://maven.sk89q.com/repo/</url>
+      </repository>
+  </repositories>
+  
+  <dependencies>
+  
+  	<!-- ProtocolLib -->
+    <dependency>
+      <groupId>com.comphenix.protocol</groupId>
+      <artifactId>ProtocolLib-API</artifactId>
+      <version>4.0</version>
+    </dependency>
+    
+    <!-- Spigot API -->
+    <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.10.2-R0.1-SNAPSHOT</version>
+    </dependency>
+    
+    <!-- Bukkit API -->
+    <dependency>
+      <groupId>org.bukkit</groupId>
+      <artifactId>bukkit</artifactId>
+      <version>1.10.2-R0.1-SNAPSHOT</version>
+    </dependency>
+    
+    <!-- CommandHelper -->
+    <dependency>
+      <groupId>com.sk89q</groupId>
+      <artifactId>commandhelper</artifactId>
+      <version>3.3.2-SNAPSHOT</version>
+    </dependency>
+    
+  </dependencies>
+  
   <build>
-    <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

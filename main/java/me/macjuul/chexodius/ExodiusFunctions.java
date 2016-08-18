@@ -435,66 +435,6 @@ public class ExodiusFunctions {
     }
 
     @api
-    public static class set_light_at
-    extends AbstractFunction {
-        @SuppressWarnings("unchecked")
-        public Class<? extends CREThrowable>[] thrown() {
-            return new Class[] {
-                    CREPlayerOfflineException.class,
-                    CRECastException.class
-            };
-        }
-
-        public boolean isRestricted() {
-            return true;
-        }
-
-        public Boolean runAsync() {
-            return Boolean.valueOf(false);
-        }
-
-        public Construct exec(Target t, Environment environment, Construct...args)
-                throws ConfigRuntimeException {
-            CArray loc = Static.getArray(args[0], t);
-            Short level = Short.valueOf(args[1].val());
-
-            if((level < 0) || (level > 15)) {
-                throw new CREIllegalArgumentException("The light level cannot be lower than 0 or be higher than 15", t);
-            }
-
-            double x = Double.valueOf(Static.getDouble(loc.get(0, t), t)).doubleValue();
-            double y = Double.valueOf(Static.getDouble(loc.get(1, t), t)).doubleValue();
-            double z = Double.valueOf(Static.getDouble(loc.get(2, t), t)).doubleValue();
-
-            BlockPosition pos = new BlockPosition(x, y, z);
-
-            net.minecraft.server.v1_10_R1.World w = ((CraftWorld) Bukkit.getWorld(loc.get(3, t).val())).getHandle();
-
-            w.a(EnumSkyBlock.BLOCK, pos, level);
-
-            return CVoid.VOID;
-        }
-
-        public String getName() {
-            return "set_light_at";
-        }
-
-        public Integer[] numArgs() {
-            return new Integer[] {
-                    Integer.valueOf(2)
-            };
-        }
-
-        public String docs() {
-            return "void {Location array, int level} Spawns a fake light source at the given location";
-        }
-
-        public Version since() {
-            return CHVersion.V3_3_2;
-        }
-    }
-
-    @api
     public static class user_input
     extends AbstractFunction {
         @SuppressWarnings("unchecked")
@@ -621,9 +561,7 @@ public class ExodiusFunctions {
         }
 
         public Integer[] numArgs() {
-            return new Integer[] {
-                    Integer.valueOf(1), Integer.valueOf(2)
-            };
+            return new Integer[] {1, 2};
         }
 
         public String docs() {
@@ -778,9 +716,7 @@ public class ExodiusFunctions {
         }
 
         public Integer[] numArgs() {
-            return new Integer[] {
-                    Integer.valueOf(0)
-            };
+            return new Integer[] {0};
         }
 
         public String docs() {
